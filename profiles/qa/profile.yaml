@@ -1,0 +1,5 @@
+display_name: 瑾瑜-测试工程师
+display_description: 测试策略与质量把关
+ui_meta:
+  hermes-bots:
+    sectionId: sec-qa

@@ -1,0 +1,5 @@
+model:
+  default: grok-4.6
+  provider: grok1
+  base_url: https://api.cheng.pink/v1
+  key_env: GROK1_API_KEY

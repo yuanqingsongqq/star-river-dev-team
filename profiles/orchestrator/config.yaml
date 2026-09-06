@@ -1,0 +1,5 @@
+model:
+  default: claude-fable-5-1
+  provider: cc-unlimited
+  base_url: https://rsxermu666.cn/v1
+  key_env: CCC_API_KEY

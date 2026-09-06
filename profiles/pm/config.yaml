@@ -1,0 +1,5 @@
+model:
+  default: glm-5.3
+  provider: glm
+  base_url: https://llm.goaichat.top/v1
+  key_env: GLM_API_KEY

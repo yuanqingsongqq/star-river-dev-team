@@ -1,0 +1,5 @@
+display_name: 凌霄-指挥官
+display_description: 任务分解与调度协调
+ui_meta:
+  hermes-bots:
+    sectionId: sec-orchestrator

@@ -1,0 +1,5 @@
+display_name: 星河-前端开发
+display_description: 界面开发与组件实现
+ui_meta:
+  hermes-bots:
+    sectionId: sec-frontend

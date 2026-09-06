@@ -1,0 +1,5 @@
+model:
+  default: gpt-6-astra
+  provider: codex200
+  base_url: https://www.kldai.cc/v1
+  key_env: CODEX200_API_KEY
