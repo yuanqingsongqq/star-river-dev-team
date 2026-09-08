@@ -1,5 +1,5 @@
 # 星河开发团队 - 模型配置
-# 更新日期: 2026-09-07
+# 更新日期: 2026-09-08
 
 ---
 
@@ -17,43 +17,21 @@
 
 ---
 
-## 二、供应商配置详情
+## 二、供应商配置
 
-### 2.1 cc-unlimited
+### 2.1 三个供应商
 
-| 配置项 | 值 |
-|--------|-----|
-| Base URL | https://rsxermu666.cn/v1 |
-| Key Env | CCC_API_KEY |
-| Transport | chat_completions |
-| 模型列表 | claude-fable-5-1, claude-sonnet-4-6 (1M), claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
+| 供应商 | Base URL | 主要模型 |
+|--------|----------|----------|
+| **cc-unlimited** | rsxermu666.cn | claude-fable-5-1, claude-sonnet-4-6, claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
+| **claude** | llm.goaichat.top | glm-5.3, glm-5.2, kimi-k2.6, kimi-k2.7-code, kimi-k3 |
+| **codex200** | kldai.cc | gpt-6-astra, gpt-5.5, gpt-5.6-sol, gpt-5.6-terra |
 
-### 2.2 claude (GLM/Kimi)
+### 2.2 已移除
 
-| 配置项 | 值 |
-|--------|-----|
-| Base URL | https://llm.goaichat.top/v1 |
-| Key Env | GLM_API_KEY |
-| Transport | chat_completions |
-| 模型列表 | glm-5.3, glm-5.2, kimi-k2.6, kimi-k2.7-code, kimi-k3 |
-
-### 2.3 codex200
-
-| 配置项 | 值 |
-|--------|-----|
-| Base URL | https://www.kldai.cc/v1 |
-| Key Env | CODEX200_API_KEY |
-| Transport | chat_completions |
-| 模型列表 | gpt-6-astra, gpt-5.5, gpt-5.6-sol, gpt-5.6-terra |
-
-### 2.4 grok1
-
-| 配置项 | 值 |
-|--------|-----|
-| Base URL | https://api.cheng.pink/v1 |
-| Key Env | GROK1_API_KEY |
-| Transport | chat_completions |
-| 模型列表 | grok-4.6, grok-4.5 |
+| 供应商 | 移除原因 |
+|--------|----------|
+| grok1 | api.cheng.pink 被 Cloudflare 拦截，无法从服务器端调用 |
 
 ---
 
@@ -67,11 +45,11 @@
 | 瑶光 | UI/UX、创意设计 | 需要中文理解 + 创意能力 |
 | 承影 | 页面开发、交互实现 | 代码能力优先 |
 | 破军 | API开发、业务逻辑 | 需要最强推理能力 |
-| 天枢 | 测试验证、质量把控 | 需要分析能力 |
+| 天枢 | 测试验证、质量把控 | 需要中文理解能力 |
 
 ---
 
-## 四、备用模型配置逻辑
+## 四、备用模型配置
 
 | 成员 | 主模型 | 备用模型 | 备用原因 |
 |------|--------|----------|----------|
@@ -81,7 +59,7 @@
 | 瑶光 | kimi-k3 | glm-5.3 | 同类模型，中文支持 |
 | 承影 | gpt-6-astra | gpt-5.6-sol | 同系列，备用 |
 | 破军 | claude-fable-5-1 | grok-4.6 | 不同模型，增加多样性 |
-| 天枢 | grok-4.6 | grok-4.5 | 同系列，备用 |
+| 天枢 | kimi-k3 | glm-5.3 | 同类模型，备用 |
 
 ---
 
@@ -106,4 +84,4 @@
 
 ---
 
-**最后更新**: 2026-09-07
+**最后更新**: 2026-09-08
