@@ -13,7 +13,7 @@
 | 瑶光 | UI/UX设计师 | designer | kimi-k3 | claude | glm-5.3 |
 | 承影 | 前端开发工程师 | frontend | gpt-6-astra | codex200 | gpt-5.6-sol |
 | 破军 | 后端开发工程师 | backend | claude-fable-5-1 | cc-unlimited | grok-4.6 |
-| 天枢 | 测试工程师 | qa | grok-4.6 | grok1 | grok-4.5 |
+| 天枢 | 测试工程师 | qa | kimi-k3 | claude | glm-5.3 |
 
 ---
 
