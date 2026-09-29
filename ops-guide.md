@@ -65,6 +65,31 @@ INFO hermes_cli.active_sessions: Refused active session <会话ID>: already held
 - 已关闭 `discover_models`，避免运行时动态覆盖模型列表
 - 供应商名称避免使用会触发 Hermes 别名的名称（如 `claude` 会被当成 Anthropic，导致模型名 `glm-5.2` 被转成 `glm-5-2` 而 404）
 
+### 3.3 hermes update 后必须重启（重要）
+
+`hermes update` 只会更新代码文件，**不会自动重启正在运行的进程**。运行中的旧进程加载旧模块，轻则继续跑旧逻辑，重则报导入错误（如 `_is_provider_env_blocklisted`、`_codex_pool_route_base_url`）。
+
+**每次执行 `hermes update` 后，必须执行：**
+
+```bash
+# 1. 重启全部 7 个机器人服务
+for bot in orchestrator pm architect designer frontend backend qa; do
+  launchctl bootout "gui/$(id -u)/ai.hermes.serve-$bot" > /dev/null 2>&1 || true
+  launchctl load ~/Library/LaunchAgents/ai.hermes.serve-$bot.plist 2>&1 | grep -v "^$" || true
+done
+
+# 2. 重启 gateway
+launchctl kickstart -k "gui/$(id -u)/ai.hermes.gateway-orchestrator" > /dev/null 2>&1 || true
+
+# 3. 验证监听端口
+for bot in orchestrator pm architect designer frontend backend qa; do
+  port=$(grep "listening" ~/.hermes/profiles/$bot/logs/serve.error.log | tail -1 | grep -oE "[0-9]{4,5}$")
+  echo "$bot: 端口 $port"
+done
+```
+
+> **注意**：`launchctl kickstart -k` 在进程异常时可能挂起。更稳妥的做法是先 `bootout` 卸载、再 `load` 重新加载（KeepAlive 会自动拉起）。
+
 ---
 
 ## 四、故障处理流程
