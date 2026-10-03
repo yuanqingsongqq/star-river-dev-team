@@ -1,5 +1,5 @@
 # 星河开发团队 - 模型配置
-# 更新日期: 2026-09-08
+# 更新日期: 2026-09-30
 
 ---
 
@@ -23,11 +23,27 @@
 
 | 供应商 | Base URL | 主要模型 |
 |--------|----------|----------|
-| **cc-unlimited** | rsxermu666.cn | claude-fable-5-1, claude-sonnet-4-6, claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
-| **claude** | llm.goaichat.top | glm-5.3, glm-5.2, kimi-k2.6, kimi-k2.7-code, kimi-k3 |
-| **codex200** | kldai.cc | gpt-6-astra, gpt-5.5, gpt-5.6-sol, gpt-5.6-terra |
+| **cc-unlimited** | `rsxermu666.cn` | claude-opus-5-5, claude-fable-5-1, claude-sonnet-4-6, claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
+| **claude** | `rsxermu666.cn` | claude-fable-5-1（my-p 专用） |
+| **codex200** | `kldai.cc` | gpt-6-astra, gpt-5.5, gpt-5.6-sol, gpt-5.6-terra |
 
-### 2.2 已移除
+> ⚠️ 密钥均通过环境变量注入（`CCC_API_KEY`、`HERMES_CUSTOM_CLAUDE_API_KEY` 等），不写入本仓库。密钥明文见各 profile 的 `.env`。
+
+### 2.2 密钥轮换记录（审计）
+
+> 记录密钥变更，不落明文。`前 N 位 + 长度` 仅用于标识轮换对象。
+
+| 日期 | 供应商 | 关联变量 | 操作 | 影响范围 |
+|------|--------|----------|------|----------|
+| 2026-09-30 | cc-unlimited | `CCC_API_KEY` | 轮换（旧 → 新） | 所有 profile 的 cc-unlimited / claude provider |
+| 2026-09-30 | cc-unlimited | `OPENAI_API_KEY`, `CUSTOM_API_KEY`, `ANTHROPIC_API_KEY` | 同步（原为旧 cc key 副本） | 各 profile `.env` |
+| 2026-09-30 | cc-unlimited | `HERMES_CUSTOM_CLAUDE_API_KEY` | 轮换（旧 → 新） | my-p 的 claude provider |
+
+- 覆盖文件：`~/.hermes/.env` + `~/.hermes/profiles/*/.env`（共 10 处 + my-p 专属变量）
+- 新 key 已验证可用（claude-opus-5-5 / claude-fable-5-1 正常响应）
+- 变更后需重启相关服务使环境变量生效
+
+### 2.3 已移除
 
 | 供应商 | 移除原因 |
 |--------|----------|
