@@ -23,8 +23,8 @@
 
 | 供应商 | Base URL | 主要模型 |
 |--------|----------|----------|
-| **cc-unlimited** | `rsxermu666.cn` | claude-opus-5-5, claude-fable-5-1, claude-sonnet-4-6, claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
-| **claude** | `rsxermu666.cn` | claude-fable-5-1（my-p 专用） |
+| **cc-unlimited** | `api.orbit1.lat` | claude-opus-5-5, claude-fable-5-2, claude-fable-5-1, claude-sonnet-4-6, claude-opus-4-8, grok-4.6, kimi-k3, glm-5.3 |
+| **claude** | `api.orbit1.lat` | claude-fable-5-1, claude-fable-5-2（my-p 专用） |
 | **codex200** | `kldai.cc` | gpt-6-astra, gpt-5.5, gpt-5.6-sol, gpt-5.6-terra |
 
 > ⚠️ 密钥均通过环境变量注入（`CCC_API_KEY`、`HERMES_CUSTOM_CLAUDE_API_KEY` 等），不写入本仓库。密钥明文见各 profile 的 `.env`。
