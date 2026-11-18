@@ -15,12 +15,18 @@ BOTS=(orchestrator pm architect designer frontend backend qa)
 HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
 HERMES_AGENT="${HERMES_AGENT:-$HERMES_HOME/hermes-agent}"
 LAUNCH_AGENTS="$HOME/Library/LaunchAgents"
-GATEWAYS=("ai.hermes.gateway-orchestrator" "ai.hermes.gateway-my-p")
+GATEWAYS=("ai.hermes.gateway")
 
 log() { echo "[$(date '+%H:%M:%S')] $*"; }
 
 is_running() {
   ps aux | grep "hermes_cli.main" | grep -v grep | grep -qE -- "--profile $1 |--open-profile $1 "
+}
+
+is_managed_by_dashboard() {
+  local port
+  port=$(grep "listening" "$HERMES_HOME/profiles/$1/logs/serve.error.log" 2>/dev/null | tail -1 | grep -oE "[0-9]{4,5}$")
+  [ -n "$port" ] && curl -sf --max-time 2 "http://127.0.0.1:$port/api/status?profile=$1" > /dev/null 2>&1
 }
 
 # 确保 hermes-agent 的 git remote 指向可用的 SSH-443 通道（github.com HTTPS 被墙）
@@ -39,9 +45,15 @@ ensure_git_remote() {
 
 # 重启单个 launchd 服务（bootout + bootstrap，避免 kickstart -k 挂起）
 restart_service() {
-  local label="$1" plist="$2"
+  local label plist
+  label="${1:-}"
+  plist="${2:-}"
+  if [ -z "$label" ] || [ -z "$plist" ]; then
+    log "  ⚠ 跳过无效服务参数"
+    return
+  fi
   if [ ! -f "$plist" ]; then
-    log "  ⚠ 跳过 $label（无 plist）"
+    log "  ⚠ 跳过 ${label}（无 plist）"
     return
   fi
   launchctl bootout "gui/$(id -u)/$label" > /dev/null 2>&1 || true
@@ -72,7 +84,7 @@ verify_all() {
   for bot in "${BOTS[@]}"; do
     local port
     port=$(grep "listening" "$HERMES_HOME/profiles/$bot/logs/serve.error.log" 2>/dev/null | tail -1 | grep -oE "[0-9]{4,5}$")
-    if is_running "$bot"; then
+    if is_running "$bot" || is_managed_by_dashboard "$bot"; then
       echo "  $bot ✅ 端口 ${port:-?}"
     else
       echo "  $bot ❌ 未运行"
